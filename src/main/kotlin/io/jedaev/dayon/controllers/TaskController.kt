@@ -1,8 +1,6 @@
 package io.jedaev.dayon.controllers
 
-import io.jedaev.dayon.model.Tables
 import org.jooq.DSLContext
-import org.jooq.Record
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.RequestMapping
@@ -14,8 +12,7 @@ import reactor.core.publisher.Flux
 class TaskController @Autowired constructor(private val dsl: DSLContext) {
 
     @GetMapping("/")
-    fun demo(): Flux<Record>{
-        return Flux.fromStream(dsl.select().from(Tables.TASK)
-                .fetch().stream())
+    fun demo(): Flux<String> {
+        return Flux.fromArray("a,b,c,d".split(",").toTypedArray())
     }
 }
