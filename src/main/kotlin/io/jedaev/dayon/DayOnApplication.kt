@@ -8,4 +8,5 @@ class DayOnApplication
 
 fun main(args: Array<String>) {
     SpringApplication.run(DayOnApplication::class.java, *args)
+
 }
