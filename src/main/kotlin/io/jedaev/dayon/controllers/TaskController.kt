@@ -1,8 +1,7 @@
 package io.jedaev.dayon.controllers
 
-import io.jedaev.dayon.model.Tables.*
+import io.jedaev.dayon.dao.TasksRepository
 import io.jedaev.dayon.model.tables.pojos.Task
-import org.jooq.DSLContext
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.PathVariable
@@ -13,26 +12,17 @@ import reactor.core.publisher.Mono
 
 @RestController
 @RequestMapping
-class TaskController @Autowired constructor(private val dsl: DSLContext) {
+class TaskController @Autowired constructor(private val tasksRepository:TasksRepository) {
 
     @GetMapping("/")
     fun list(): Flux<Task> {
-        return Flux.fromStream(
-                dsl.selectFrom(TASK)
-                        .fetch{ t-> Task(t.id, t.text) }
-                        .stream()
-        )
+        return Flux.fromStream(tasksRepository.findAll().stream())
     }
 
     @GetMapping("/{id}")
     fun one(@PathVariable("id") id: Long): Mono<Task>{
 
-        return Mono.justOrEmpty(
-                dsl
-            .selectFrom(TASK)
-            .where(TASK.ID.eq(id))
-            .fetchOne{t -> Task(t.id, t.text) }
-        )
+        return Mono.justOrEmpty(tasksRepository.findOne(id))
 
     }
 
