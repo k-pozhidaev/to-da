@@ -11,10 +11,10 @@ import reactor.core.publisher.Flux
 import reactor.core.publisher.Mono
 
 @RestController
-@RequestMapping
+@RequestMapping("/api/v1/json/task")
 class TaskController @Autowired constructor(private val tasksRepository:TasksRepository) {
 
-    @GetMapping("/")
+    @GetMapping
     fun list(): Flux<Task> {
         return Flux.fromStream(tasksRepository.findAll().stream())
     }
