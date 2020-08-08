@@ -3,3 +3,8 @@ spring:
     url: jdbc:postgresql://localhost:5432/to-da
     username: postgres
     password: postgres
+    hikari:
+      maximum-pool-size: 10
+  jpa:
+    hibernate:
+      ddl-auto: create
