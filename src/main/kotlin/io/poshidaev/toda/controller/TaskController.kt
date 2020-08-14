@@ -15,7 +15,6 @@ import reactor.core.scheduler.Scheduler
 class TaskController @Autowired constructor(
         private var taskRepository: TaskRepository,
         @Qualifier("jdbcScheduler") private val jdbcScheduler: Scheduler
-
 ) {
     fun <T> wrap (publisher : Mono<T>) : Mono<T> = Mono.defer { publisher }.subscribeOn(jdbcScheduler)
     fun <T> wrap (publisher : Flux<T>) : Flux<T> = Flux.defer { publisher }.subscribeOn(jdbcScheduler)
