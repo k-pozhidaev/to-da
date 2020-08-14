@@ -3,7 +3,7 @@ package io.poshidaev.toda.entity
 import javax.persistence.*
 
 @Entity
-class Task {
+class Task : BaseEntity{
 
     constructor(text: String?){
         this.text = text
@@ -16,10 +16,6 @@ class Task {
         this.text = text
     }
 
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    var id: Long? = null
 
     @Column(nullable = false)
     var text: String? = null

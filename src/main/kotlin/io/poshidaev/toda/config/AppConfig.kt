@@ -8,15 +8,13 @@ import reactor.core.scheduler.Schedulers
 import java.util.concurrent.Executors
 
 @Configuration
-class DBConfig {
-
+class AppConfig {
 
     @Value("\${spring.datasource.hikari.maximum-pool-size}")
     private var connectionPoolSize = 0
 
-
     @Bean
-    fun jdbcScheduler(): Scheduler? {
-        return Schedulers.fromExecutor(Executors.newFixedThreadPool(connectionPoolSize))
-    }
+    fun jdbcScheduler(): Scheduler? = Schedulers.fromExecutor(Executors.newFixedThreadPool(connectionPoolSize))
+
+
 }
