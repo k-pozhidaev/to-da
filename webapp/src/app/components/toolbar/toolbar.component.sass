@@ -1,0 +1,78 @@
+@import "src/app/scss/color"
+nav.navigation
+  display: flex
+  align-items: center
+  justify-content: center
+  height: 48px
+  margin: 0 40px 0 15px
+
+  .toolbar-logo, .toolbar-navigate
+    flex: 1
+    display: inline-block
+
+    .user
+      position: relative
+
+      .user-name
+        font-size: 14px
+        letter-spacing: 0.2em
+
+      .user-settings-panel
+        display: none
+        position: absolute
+        width: 200px
+        z-index: 10
+        top: 36px
+        right: 8px
+        background: $white
+        border: $border-light
+        padding: 4px 0
+
+        li
+          a
+            color: $font-color-gray
+            display: block
+            font-size: 13px
+            padding: 12px 15px
+            text-decoration: none
+            font-weight: 500
+            cursor: pointer
+
+            &:hover
+              color: $white
+              background: $to-da-blue
+
+
+      span.user-settings
+        cursor: pointer
+        font-size: 20px
+        padding: 10px
+        vertical-align: middle
+
+      &:hover > span.user-settings::before
+        content: "\f106"
+
+      &:hover > .user-settings-panel
+        display: block
+
+
+
+  .toolbar-logo
+    font-size: 0
+    cursor: pointer
+    .logo
+      height: 32px
+
+
+  .toolbar-title
+    display: flex
+    align-items: center
+    overflow: hidden
+    white-space: nowrap
+    font-size: 14px
+    font-weight: 500
+
+  .toolbar-navigate
+    display: flex
+    justify-content: flex-end
+

@@ -1,0 +1,40 @@
+@import "scss/color"
+
+.flex-container
+  height: 100%
+  display: flex
+  flex-direction: column
+  header
+    color: $white
+    flex: 0 0 auto
+    background-color: $to-da-blue
+  .wrapper
+    flex: 1 1 auto
+    position: relative
+    color: $to-da-gray
+    display: flex
+    .main-container
+      flex: 1
+      background: #F0F3F4
+      display: flex
+      flex-direction: column
+      overflow: auto
+
+      .main-content
+        padding: 40px
+        flex: 1
+  footer
+    display: flex
+    flex: 0 0 auto
+    color: $font-color-gray
+    height: 30pt
+    justify-content: center
+    align-items: center
+    font-size: 10pt
+    span, a
+      margin: 0 30px
+    .footer_link
+      text-decoration: none
+      color: inherit
+
+

@@ -1,2 +1,25 @@
-<h2>Lets start</h2>
-<router-outlet></router-outlet>
+<div class="flex-container">
+  <header>
+    <app-toolbar>
+
+    </app-toolbar>
+<!--    <div>qwe </div>-->
+  </header>
+
+  <div class="wrapper">
+    <main class="main-container">
+      <section class="main-content">
+<!--        <app-breadcrumb></app-breadcrumb>-->
+        <router-outlet></router-outlet>
+
+      </section>
+
+      <footer>
+        <span>&copy; 2020 Konstantin Pozhidaev</span>
+<!--        <a [href]="'GLOBAL.COPYRIGHT_LINK'" class="footer_link">{{ "GLOBAL.COPYRIGHT" | translate }}</a>-->
+<!--        <a  [href]="'GLOBAL.TERMS_OF_USE_LINK' | translate" class="footer_link">{{ "GLOBAL.TERMS_OF_USE" | translate }}</a>-->
+      </footer>
+    </main>
+  </div>
+
+</div>
