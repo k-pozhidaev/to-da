@@ -1,0 +1,62 @@
+@import 'color'
+
+html, body
+  font-family: 'Roboto', "Lucida Grande", Verdana, Arial, sans-serif
+  height: 100%
+  overflow: hidden
+  box-sizing: border-box
+  font-size: 11px
+  min-width: 640px
+
+
+.content
+  background: $white
+  box-shadow: 0 5px 5px rgba(0, 0, 0, 0.25)
+  min-height: 100px
+  padding: 30px
+
+
+ul.navigation-line
+  list-style-type: none
+  margin: 0
+  padding: 0
+  overflow: hidden
+
+  li
+    float: left
+
+    a.navigation-link
+      display: block
+      color: $font-color-gray
+      text-transform: uppercase
+      text-align: center
+      text-decoration: none
+      font-weight: 500
+      letter-spacing: 0.2em
+      padding-right: 20px
+      cursor: pointer
+
+      &:hover
+        color: $to-da-blue
+        text-decoration: underline
+
+      &.active
+        color: $to-da-blue
+
+
+
+
+
+.clearfix::after
+  content: ""
+  clear: both
+  display: table
+
+.clearfix
+  overflow: auto
+
+
+.ellipsis
+  white-space: nowrap
+  overflow: hidden
+  text-overflow: ellipsis

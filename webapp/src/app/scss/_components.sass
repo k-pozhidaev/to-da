@@ -1,0 +1,1093 @@
+@import 'color'
+
+$button-width: 120px
+$button-height: 36px
+$main-shadow: 0px 0px 5px 0px rgba(0, 0, 0, 0.25)
+$button-shadow: 0 5px 5px rgba(0, 0, 0, 0.25)
+
+
+hr
+  border: none
+  background: $separator-light
+  height: 1px
+  display: block
+  width: 100%
+  margin: 15px 0 25px
+
+
+p
+  margin: 10px 0
+
+
+/* FORM ELEMENTS */
+select
+  width: 200px
+  height: 25px
+  background: $to-da-gray
+  outline: none
+  border-radius: 2px
+  border: $border-light
+
+  option
+    background: $white
+    font-size: 12px
+
+
+input[type=color]
+  display: inline-block
+  width: 35px
+  height: 18px
+  border: 1px solid $separator-light
+  background: none
+
+.form-input
+  font-size: 12px
+  border-radius: 2px
+  border: 1px solid $separator-light
+  outline: none
+
+  white-space: nowrap
+  overflow: hidden
+  text-overflow: ellipsis
+  padding: 5px 7px
+  box-sizing: border-box
+  width: 100%
+  &.active
+    background: $to-da-gray
+
+  &.ng-touched.ng-dirty.ng-invalid, &.ng-touched.ng-pristine.ng-invalid
+    border: 1px solid red
+    & + .error
+      color: red
+
+
+
+
+.form-input-big
+  @extend .form-input
+  font-size: 13px
+  padding: 8px 12px
+
+.form-field
+  text-align: left
+  margin: 7px 0
+
+  &.form-field_large
+    .form-label
+      font-size: 13px
+      padding: 6px
+
+.form-textarea
+  @extend .form-input
+  white-space: normal
+  overflow: auto
+  min-height: 45px
+  padding-top: 4px
+  padding-bottom: 4px
+
+.form-label
+  display: block
+  font-weight: 500
+  text-align: left
+  font-size: 11px
+  padding: 7px 0
+  text-transform: uppercase
+
+.form-value
+  padding-top: 5px
+  padding-bottom: 5px
+  font-size: 13px
+
+
+/* TEXT */
+.text-center
+  text-align: center
+
+.text-right
+  text-align: right
+
+.text-large
+  font-size: 18px
+
+.text-middle
+  font-size: 16px
+
+
+.text-link
+  cursor: pointer
+  text-transform: uppercase
+  color: $to-da-blue
+  text-underline: none
+
+
+.btn
+  font-family: "BentonSans Medium", "Roboto", "Lucida Grande", Verdana, Arial, sans-serif
+  min-width: $button-width
+  height: $button-height
+  text-align: center
+  letter-spacing: 0.15em
+  border-radius: 2px
+  box-shadow: 0 5px 5px rgba(0, 0, 0, 0.25)
+  font-size: 11px
+  font-weight: 500
+  text-transform: uppercase
+  cursor: pointer
+
+  &.default, &.cancel
+    color: $font-color-gray
+    background: $background-light-gray
+    border: 1px solid $separator-light
+
+    &:hover
+      background: darken($background-light-gray, 5%)
+      border-color: darken($separator-light, 5%)
+
+
+    &:disabled
+      background: $background-light-gray
+      border: 1px solid $separator-light
+      color: lighten($font-color-gray, 25%)
+      cursor: auto
+      box-shadow: none
+
+
+
+
+  &.submit, &.confirm
+    background: $btn-submit-hover
+    border: 1px solid darken($btn-submit-hover, 10%)
+    color: $white
+
+    &:hover
+      background: darken($btn-submit-hover, 20%)
+      border-color: darken($btn-submit-hover, 30%)
+
+    &:disabled
+      background: lighten($btn-submit-hover, 30%)
+      border: 1px solid lighten($btn-submit-hover, 25%)
+      color: $white
+      cursor: auto
+      box-shadow: none
+
+
+  //&.cancel
+  //  border: $btn-cancel-border
+  //  background: $btn-cancel
+  //  color: $white
+  //
+  //  &:hover
+  //    background: $btn-cancel-hover
+  //    border: $btn-cancel-hover-border
+  //
+  //
+  //  &:disabled
+  //    box-shadow: none
+  //
+  //
+
+  //&.confirm
+  //  background: #009245
+  //  border: solid 1px #037c39
+  //  color: $white
+  //
+  //  &:hover
+  //    background: #03602d
+  //    border: solid 1px #024920
+  //
+  //  &:disabled
+  //    cursor: not-allowed
+  //    box-shadow: none
+  //
+  //
+
+  &.borderless
+    border: none
+    background: none
+    box-shadow: none
+    padding-top: 0
+    padding-bottom: 0
+
+    .fa
+      display: block
+      font-size: 16px
+      margin-bottom: 2px
+
+
+    &:disabled
+      opacity: .7
+
+
+
+  &.small
+    padding: 0 7px
+
+
+  &.inline
+    .fa
+      display: inline-block
+      font-size: 13px
+
+
+
+  &.block
+    display: block
+    width: 100%
+    box-sizing: border-box
+
+
+  & + &
+    margin-left: 5px
+
+
+
+.table
+  .table-row
+    display: flex
+    flex-direction: row
+    flex-grow: 0
+    flex-wrap: wrap
+    align-items: center
+    /*overflow: hidden*/
+
+    .header
+      letter-spacing: 0.2em
+      text-transform: uppercase
+      font-size: 11px
+      font-weight: 500
+      padding: 12px 0
+      display: inline-block
+
+
+    .label
+      @extend .header
+      width: 113px
+
+
+    .attributes
+      display: inline-block
+
+
+
+
+
+.preview
+  box-sizing: border-box
+  width: 255px
+  margin: 10px auto
+  position: relative
+  text-align: center
+  img
+    max-width: 248px
+    max-height: 150px
+    margin: 5px
+    background: $background-light-gray
+
+
+  i.delete
+    position: absolute
+    top: 5px
+    right: 5px
+    color: $to-da-red
+    font-size: 18px
+    cursor: pointer
+
+
+
+/** Content */
+.content
+
+  .content__title
+    font-weight: 500
+    margin: 10px 0 15px
+    text-transform: uppercase
+
+
+  h1.content__title
+    font-size: 20px
+
+
+  h2.content__title
+    font-size: 16px
+
+
+  h3.content__title
+    font-size: 14px
+
+
+.content-panel
+  background: $white
+  box-shadow: $main-shadow
+
+  .content-panel-header
+    padding: 15px 25px 10px
+    background: $gray
+    border-bottom: 1px solid $separator-light
+
+    .content-panel-header__title
+      color: $font-color-gray
+      font-weight: 500
+      font-size: 12px
+      text-transform: uppercase
+
+
+
+  .content-panel-body
+    padding: 2rem
+
+    .content-panel-body__title
+      margin: 10px 0
+      font-weight: 500
+      text-transform: uppercase
+
+      &.content-panel-body__title_blue
+        color: $to-da-blue
+
+
+
+
+
+// Alert block
+.alert
+  font-size: 13px
+  margin: 10px 0
+  padding: 10px
+  border: 1px solid $separator-dark
+  background: $separator-light
+
+  &.alert_red
+    background: lighten($to-da-red, 15%)
+    border-color: darken($to-da-red, 10%)
+
+
+
+.right
+  text-align: right
+
+.hide
+  display: none !important
+
+
+.float-left
+  float: left
+
+.float-right
+  float: right
+
+
+.flex
+  display: flex
+  flex-direction: row
+  flex-wrap: wrap
+
+
+.flex-center
+  @extend .flex
+  justify-content: center
+  align-items: center
+
+.flex-scatter
+  @extend .flex
+  justify-content: space-between
+
+.flex-evenly
+  @extend .flex
+  justify-content: space-around
+
+
+.flex-scatter-center
+  @extend .flex-scatter
+  align-items: center
+
+.flex-row
+  box-sizing: border-box
+  display: flex
+  width: 100%
+  flex: 0 1 auto
+  flex-direction: row
+  flex-wrap: wrap
+
+.col-xs,
+.col-xs-1,
+.col-xs-2,
+.col-xs-3,
+.col-xs-4,
+.col-xs-5,
+.col-xs-6,
+.col-xs-7,
+.col-xs-8,
+.col-xs-9,
+.col-xs-10,
+.col-xs-11,
+.col-xs-12
+  box-sizing: border-box
+  flex: 0 0 auto
+  padding-right: 1rem
+  padding-left: 1rem
+
+.col-xs
+  flex-grow: 1
+  flex-basis: 0
+  max-width: 100%
+
+.col-xs-1
+  flex-basis: 8.333%
+  max-width: 8.333%
+
+.col-xs-2
+  flex-basis: 16.667%
+  max-width: 16.667%
+
+.col-xs-3
+  flex-basis: 25%
+  max-width: 25%
+
+.col-xs-4
+  flex-basis: 33.333%
+  max-width: 33.333%
+
+.col-xs-5
+  flex-basis: 41.667%
+  max-width: 41.667%
+
+.col-xs-6
+  flex-basis: 50%
+  max-width: 50%
+
+.col-xs-7
+  flex-basis: 58.333%
+  max-width: 58.333%
+
+.col-xs-8
+  flex-basis: 66.667%
+  max-width: 66.667%
+
+.col-xs-9
+  flex-basis: 75%
+  max-width: 75%
+
+.col-xs-10
+  flex-basis: 83.333%
+  max-width: 83.333%
+
+.col-xs-11
+  flex-basis: 91.667%
+  max-width: 91.667%
+
+.col-xs-12
+  flex-basis: 100%
+  max-width: 100%
+
+.col-xs-offset-1
+  margin-left: 8.333%
+
+.col-xs-offset-2
+  margin-left: 16.667%
+
+.col-xs-offset-3
+  margin-left: 25%
+
+.col-xs-offset-4
+  margin-left: 33.333%
+
+.col-xs-offset-5
+  margin-left: 41.667%
+
+.col-xs-offset-6
+  margin-left: 50%
+
+.col-xs-offset-7
+  margin-left: 58.333%
+
+.col-xs-offset-8
+  margin-left: 66.667%
+
+.col-xs-offset-9
+  margin-left: 75%
+
+.col-xs-offset-10
+  margin-left: 83.333%
+
+.col-xs-offset-11
+  margin-left: 91.667%
+
+.start-xs
+  justify-content: flex-start
+  text-align: start
+
+.center-xs
+  justify-content: center
+  text-align: center
+
+.end-xs
+  justify-content: flex-end
+  text-align: end
+
+.top-xs
+  align-items: flex-start
+
+.middle-xs
+  align-items: center
+
+.bottom-xs
+  align-items: flex-end
+
+.around-xs
+  justify-content: space-around
+
+.between-xs
+  justify-content: space-between
+
+.first-xs
+  order: -1
+
+.last-xs
+  order: 1
+
+@media only screen and (min-width: 48em)
+.container
+  width: 46rem
+
+
+.col-sm,
+.col-sm-1,
+.col-sm-2,
+.col-sm-3,
+.col-sm-4,
+.col-sm-5,
+.col-sm-6,
+.col-sm-7,
+.col-sm-8,
+.col-sm-9,
+.col-sm-10,
+.col-sm-11,
+.col-sm-12
+  box-sizing: border-box
+  flex: 0 0 auto
+  padding-right: 1rem
+  padding-left: 1rem
+
+
+.col-sm
+  flex-grow: 1
+  flex-basis: 0
+  max-width: 100%
+
+
+.col-sm-1
+  flex-basis: 8.333%
+  max-width: 8.333%
+
+
+.col-sm-2
+  flex-basis: 16.667%
+  max-width: 16.667%
+
+
+.col-sm-3
+  flex-basis: 25%
+  max-width: 25%
+
+
+.col-sm-4
+  flex-basis: 33.333%
+  max-width: 33.333%
+
+
+.col-sm-5
+  flex-basis: 41.667%
+  max-width: 41.667%
+
+
+.col-sm-6
+  flex-basis: 50%
+  max-width: 50%
+
+
+.col-sm-7
+  flex-basis: 58.333%
+  max-width: 58.333%
+
+
+.col-sm-8
+  flex-basis: 66.667%
+  max-width: 66.667%
+
+
+.col-sm-9
+  flex-basis: 75%
+  max-width: 75%
+
+
+.col-sm-10
+  flex-basis: 83.333%
+  max-width: 83.333%
+
+
+.col-sm-11
+  flex-basis: 91.667%
+  max-width: 91.667%
+
+
+.col-sm-12
+  flex-basis: 100%
+  max-width: 100%
+
+
+.col-sm-offset-1
+  margin-left: 8.333%
+
+
+.col-sm-offset-2
+  margin-left: 16.667%
+
+
+.col-sm-offset-3
+  margin-left: 25%
+
+
+.col-sm-offset-4
+  margin-left: 33.333%
+
+
+.col-sm-offset-5
+  margin-left: 41.667%
+
+
+.col-sm-offset-6
+  margin-left: 50%
+
+
+.col-sm-offset-7
+  margin-left: 58.333%
+
+
+.col-sm-offset-8
+  margin-left: 66.667%
+
+
+.col-sm-offset-9
+  margin-left: 75%
+
+
+.col-sm-offset-10
+  margin-left: 83.333%
+
+
+.col-sm-offset-11
+  margin-left: 91.667%
+
+
+.start-sm
+  justify-content: flex-start
+  text-align: start
+
+
+.center-sm
+  justify-content: center
+  text-align: center
+
+
+.end-sm
+  justify-content: flex-end
+  text-align: end
+
+
+.top-sm
+  align-items: flex-start
+
+
+.middle-sm
+  align-items: center
+
+
+.bottom-sm
+  align-items: flex-end
+
+
+.around-sm
+  justify-content: space-around
+
+
+.between-sm
+  justify-content: space-between
+
+
+.first-sm
+  order: -1
+
+
+.last-sm
+  order: 1
+
+
+
+@media only screen and (min-width: 62em)
+.container
+  width: 61rem
+
+
+.col-md,
+.col-md-1,
+.col-md-2,
+.col-md-3,
+.col-md-4,
+.col-md-5,
+.col-md-6,
+.col-md-7,
+.col-md-8,
+.col-md-9,
+.col-md-10,
+.col-md-11,
+.col-md-12
+  box-sizing: border-box
+  flex: 0 0 auto
+  padding-right: 1rem
+  padding-left: 1rem
+
+
+.col-md
+  flex-grow: 1
+  flex-basis: 0
+  max-width: 100%
+
+
+.col-md-1
+  flex-basis: 8.333%
+  max-width: 8.333%
+
+
+.col-md-2
+  flex-basis: 16.667%
+  max-width: 16.667%
+
+
+.col-md-3
+  flex-basis: 25%
+  max-width: 25%
+
+
+.col-md-4
+  flex-basis: 33.333%
+  max-width: 33.333%
+
+
+.col-md-5
+  flex-basis: 41.667%
+  max-width: 41.667%
+
+
+.col-md-6
+  flex-basis: 50%
+  max-width: 50%
+
+
+.col-md-7
+  flex-basis: 58.333%
+  max-width: 58.333%
+
+
+.col-md-8
+  flex-basis: 66.667%
+  max-width: 66.667%
+
+
+.col-md-9
+  flex-basis: 75%
+  max-width: 75%
+
+
+.col-md-10
+  flex-basis: 83.333%
+  max-width: 83.333%
+
+
+.col-md-11
+  flex-basis: 91.667%
+  max-width: 91.667%
+
+
+.col-md-12
+  flex-basis: 100%
+  max-width: 100%
+
+
+.col-md-offset-1
+  margin-left: 8.333%
+
+
+.col-md-offset-2
+  margin-left: 16.667%
+
+
+.col-md-offset-3
+  margin-left: 25%
+
+
+.col-md-offset-4
+  margin-left: 33.333%
+
+
+.col-md-offset-5
+  margin-left: 41.667%
+
+
+.col-md-offset-6
+  margin-left: 50%
+
+
+.col-md-offset-7
+  margin-left: 58.333%
+
+
+.col-md-offset-8
+  margin-left: 66.667%
+
+
+.col-md-offset-9
+  margin-left: 75%
+
+
+.col-md-offset-10
+  margin-left: 83.333%
+
+
+.col-md-offset-11
+  margin-left: 91.667%
+
+
+.col-md-separator
+  position: relative
+
+  &:before
+    content: ''
+    position: absolute
+    width: 1px
+    height: 100%
+    top: 0
+    left: 50%
+    background: $separator-light
+
+
+
+.start-md
+  justify-content: flex-start
+  text-align: start
+
+
+.center-md
+  justify-content: center
+  text-align: center
+
+
+.end-md
+  justify-content: flex-end
+  text-align: end
+
+
+.top-md
+  align-items: flex-start
+
+
+.middle-md
+  align-items: center
+
+
+.bottom-md
+  align-items: flex-end
+
+
+.around-md
+  justify-content: space-around
+
+
+.between-md
+  justify-content: space-between
+
+
+.first-md
+  order: -1
+
+
+.last-md
+  order: 1
+
+
+
+@media only screen and (min-width: 75em)
+.container
+  width: 71rem
+
+
+.col-lg,
+.col-lg-1,
+.col-lg-2,
+.col-lg-3,
+.col-lg-4,
+.col-lg-5,
+.col-lg-6,
+.col-lg-7,
+.col-lg-8,
+.col-lg-9,
+.col-lg-10,
+.col-lg-11,
+.col-lg-12
+  box-sizing: border-box
+  flex: 0 0 auto
+  padding-right: 1rem
+  padding-left: 1rem
+
+
+.col-lg
+  flex-grow: 1
+  flex-basis: 0
+  max-width: 100%
+
+
+.col-lg-1
+  flex-basis: 8.333%
+  max-width: 8.333%
+
+
+.col-lg-2
+  flex-basis: 16.667%
+  max-width: 16.667%
+
+
+.col-lg-3
+  flex-basis: 25%
+  max-width: 25%
+
+
+.col-lg-4
+  flex-basis: 33.333%
+  max-width: 33.333%
+
+
+.col-lg-5
+  flex-basis: 41.667%
+  max-width: 41.667%
+
+
+.col-lg-6
+  flex-basis: 50%
+  max-width: 50%
+
+
+.col-lg-7
+  flex-basis: 58.333%
+  max-width: 58.333%
+
+
+.col-lg-8
+  flex-basis: 66.667%
+  max-width: 66.667%
+
+
+.col-lg-9
+  flex-basis: 75%
+  max-width: 75%
+
+
+.col-lg-10
+  flex-basis: 83.333%
+  max-width: 83.333%
+
+
+.col-lg-11
+  flex-basis: 91.667%
+  max-width: 91.667%
+
+
+.col-lg-12
+  flex-basis: 100%
+  max-width: 100%
+
+
+.col-lg-offset-1
+  margin-left: 8.333%
+
+
+.col-lg-offset-2
+  margin-left: 16.667%
+
+
+.col-lg-offset-3
+  margin-left: 25%
+
+
+.col-lg-offset-4
+  margin-left: 33.333%
+
+
+.col-lg-offset-5
+  margin-left: 41.667%
+
+
+.col-lg-offset-6
+  margin-left: 50%
+
+
+.col-lg-offset-7
+  margin-left: 58.333%
+
+
+.col-lg-offset-8
+  margin-left: 66.667%
+
+
+.col-lg-offset-9
+  margin-left: 75%
+
+
+.col-lg-offset-10
+  margin-left: 83.333%
+
+
+.col-lg-offset-11
+  margin-left: 91.667%
+
+
+.start-lg
+  -ms-flex-pack: start
+  -webkit-box-pack: start
+  justify-content: flex-start
+  text-align: start
+
+
+.center-lg
+  justify-content: center
+  text-align: center
+
+
+.end-lg
+  justify-content: flex-end
+  text-align: end
+
+
+.top-lg
+  align-items: flex-start
+
+
+.middle-lg
+  align-items: center
+
+
+.bottom-lg
+  align-items: flex-end
+
+
+.around-lg
+  justify-content: space-around
+
+
+.between-lg
+  justify-content: space-between
+
+
+.first-lg
+  order: -1
+
+
+.last-lg
+  order: 1
+
