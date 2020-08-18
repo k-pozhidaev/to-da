@@ -1,23 +1,18 @@
 <div class="flex-container">
   <header>
-    <app-toolbar>
-
-    </app-toolbar>
-<!--    <div>qwe </div>-->
+    <app-toolbar></app-toolbar>
   </header>
 
   <div class="wrapper">
+    <nav class="navigation">
+      <app-navigation></app-navigation>
+    </nav>
     <main class="main-container">
       <section class="main-content">
-<!--        <app-breadcrumb></app-breadcrumb>-->
         <router-outlet></router-outlet>
-
       </section>
-
       <footer>
         <span>&copy; 2020 Konstantin Pozhidaev</span>
-<!--        <a [href]="'GLOBAL.COPYRIGHT_LINK'" class="footer_link">{{ "GLOBAL.COPYRIGHT" | translate }}</a>-->
-<!--        <a  [href]="'GLOBAL.TERMS_OF_USE_LINK' | translate" class="footer_link">{{ "GLOBAL.TERMS_OF_USE" | translate }}</a>-->
       </footer>
     </main>
   </div>
