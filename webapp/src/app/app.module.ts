@@ -8,6 +8,8 @@ import { ToolbarComponent } from './components/toolbar/toolbar.component';
 import { GoalsComponent } from './page/goals/goals.component';
 import {MatButtonModule} from '@angular/material/button';
 import { NavigationComponent } from './components/navigation/navigation.component';
+import { CreateGoalComponent } from './page/create-goal/create-goal.component';
+import { AchievementsComponent } from './page/achievements/achievements.component';
 
 @NgModule({
   declarations: [
@@ -15,6 +17,8 @@ import { NavigationComponent } from './components/navigation/navigation.componen
     ToolbarComponent,
     GoalsComponent,
     NavigationComponent,
+    CreateGoalComponent,
+    AchievementsComponent,
   ],
   imports: [
     BrowserModule,

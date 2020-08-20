@@ -1,7 +1,11 @@
 <div class="users-goals-list">
   <div class="goal-item" *ngFor="let item of items">
     <div class="goal-item-content">
-      <span class="goal-text">{{ item.text }}</span>
+      <span class="goal-text">
+        {{ item.text }}
+
+        <span *ngIf="item.approachesCount > 1">({{ item.trialsCount }}/{{item.approachesCount}})</span>
+      </span>
       <span><button mat-raised-button color="success">Accent</button></span>
     </div>
   </div>
