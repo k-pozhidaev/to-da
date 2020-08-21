@@ -1,4 +1,4 @@
 export enum GoalStatus {
-  IN_PROGRESS= "IN_PROGRESS",
-  DONE = "DONE"
+  IN_PROGRESS = 0,
+  DONE = 1
 }

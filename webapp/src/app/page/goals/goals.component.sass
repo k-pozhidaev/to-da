@@ -4,17 +4,27 @@
   display: flex
   flex-direction: column
   .goal-item
-    box-shadow: 5px 0 5px rgba(0, 0, 0, 0.25)
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.25)
     border-radius: 3pt
     padding: 3pt
-    margin: 3pt
+    margin: 3pt 0
     background-color: white
+    &.done
+      background-color: $background-light-gray
+      box-shadow: none
+      border-bottom: 1px gray dashed
+      border-top: 1px gray dashed
+      border-radius: 0
     .goal-item-content
       display: flex
       flex-direction: row
       justify-content: space-between
       align-items: center
       margin-left: 5pt
+    .goal-text
+      font-weight: bold
+      font-size: 20px
+      margin:  0 0  10pt 0
 
 .mat-success
   background-color: $to-da-green

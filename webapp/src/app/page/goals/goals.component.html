@@ -1,13 +1,24 @@
 <div class="users-goals-list">
-  <div class="goal-item" *ngFor="let item of items">
+  <div class="goal-item" *ngFor="let item of items | goalsGridOrder" [ngClass]=" item.isDone() ? 'done' : ''" >
     <div class="goal-item-content">
-      <span class="goal-text">
-        {{ item.text }}
+      <div>
+        <div class="goal-text">
+          {{ item.text }}
+          <span *ngIf="item.approachesCount > 1">({{ item.trialsCount }}/{{item.approachesCount}})</span>
+        </div>
 
-        <span *ngIf="item.approachesCount > 1">({{ item.trialsCount }}/{{item.approachesCount}})</span>
+        <div *ngIf="item.topics.length > 0">
+          <mat-chip-list>
+            <mat-chip *ngFor="let topic of item.topics">{{ topic.text }}</mat-chip>
+          </mat-chip-list>
+        </div>
+      </div>
+      <span>
+        <button mat-raised-button color="success" *ngIf="!item.isDone()" (click)="acceptTrial($event, item)">Accept</button>
+        <button mat-raised-button *ngIf="item.isDone()">Repeat</button>
       </span>
-      <span><button mat-raised-button color="success">Accent</button></span>
     </div>
   </div>
 
 </div>
+
