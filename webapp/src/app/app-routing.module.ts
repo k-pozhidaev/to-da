@@ -3,6 +3,9 @@ import { Routes, RouterModule } from '@angular/router';
 import {GoalsComponent} from "./page/goals/goals.component";
 import {CreateGoalComponent} from "./page/create-goal/create-goal.component";
 import {AchievementsComponent} from "./page/achievements/achievements.component";
+import {Topic} from "./models/topic";
+import {TopicsComponent} from "./page/topics/topics.component";
+import {TopicItemComponent} from "./page/topics/topic-item/topic-item.component";
 
 const routes: Routes = [
   {path: '', redirectTo: '/goals', pathMatch: 'full'},
@@ -26,7 +29,21 @@ const routes: Routes = [
     data: {
       title: 'Achievements'
     }
-  }
+  },
+  {
+    path: 'topics',
+    component: TopicsComponent,
+    data: {
+      title: 'Topics'
+    }
+  },
+  {
+    path: 'topic/:text',
+    component: TopicItemComponent,
+    data: {
+      title: 'Topic'
+    }
+  },
 ];
 
 @NgModule({

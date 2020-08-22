@@ -11,7 +11,10 @@ class Task : BaseEntity{
 
     constructor()
 
-    constructor(id: Long?, text: String?) {
+    constructor(
+            id: Long?,
+            text: String?
+    ) {
         this.id = id
         this.text = text
     }

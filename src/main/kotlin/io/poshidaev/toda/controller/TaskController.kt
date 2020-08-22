@@ -11,7 +11,7 @@ import reactor.core.publisher.Mono
 import reactor.core.scheduler.Scheduler
 
 @RestController
-@RequestMapping(value = ["/task"])
+@RequestMapping(value = ["/api/task"])
 class TaskController @Autowired constructor(
         private var taskRepository: TaskRepository,
         @Qualifier("jdbcScheduler") private val jdbcScheduler: Scheduler

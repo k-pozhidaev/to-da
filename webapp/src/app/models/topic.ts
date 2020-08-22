@@ -1,9 +1,7 @@
 export class Topic {
-  id : Number
   text : String
 
-  constructor(id : Number, text: String) {
-    this.id = id
+  constructor(text: String) {
     this.text = text
   }
 }

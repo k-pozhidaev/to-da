@@ -1,3 +1,4 @@
+
 <div class="users-goals-list">
   <div class="goal-item" *ngFor="let item of items | goalsGridOrder" [ngClass]=" item.isDone() ? 'done' : ''" >
     <div class="goal-item-content">
@@ -8,9 +9,7 @@
         </div>
 
         <div *ngIf="item.topics.length > 0">
-          <mat-chip-list>
-            <mat-chip *ngFor="let topic of item.topics">{{ topic.text }}</mat-chip>
-          </mat-chip-list>
+            <a *ngFor="let topic of item.topics" routerLink="/topic/{{topic.text}}">#{{ topic.text }}</a>
         </div>
       </div>
       <span>
