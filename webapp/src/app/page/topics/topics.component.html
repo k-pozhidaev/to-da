@@ -1,1 +1,6 @@
-<p>topics works!</p>
+<div class="topics-container">
+  <a class="topic-item" *ngFor="let a of topics.keys()" routerLink="/topic/{{ a.text }}">
+    <b>{{ a.text }}</b>
+    <i>({{ topics.get(a) }})</i>
+  </a>
+</div>

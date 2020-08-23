@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import {Topic} from "../../../models/topic";
+import {ActivatedRoute} from "@angular/router";
 
 @Component({
   selector: 'app-topic-item',
@@ -7,9 +9,13 @@ import { Component, OnInit } from '@angular/core';
 })
 export class TopicItemComponent implements OnInit {
 
-  constructor() { }
+  constructor(private route: ActivatedRoute) { }
+
+  topic: Topic
 
   ngOnInit(): void {
+    const text = this.route.snapshot.paramMap.get('text');
+    this.topic = new Topic(text)
   }
 
 }

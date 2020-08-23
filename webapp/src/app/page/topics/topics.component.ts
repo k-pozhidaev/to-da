@@ -8,12 +8,16 @@ import {Topic} from "../../models/topic";
 })
 export class TopicsComponent implements OnInit {
 
-  topics: Topic[]
+  topics: Map<Topic, number>
+
 
   constructor() { }
 
   ngOnInit(): void {
-    this.topics = []
+    this.topics = new Map()
+    this.topics.set(new Topic("sport"), 1)
+    this.topics.set(new Topic("apartments"), 3)
+    this.topics.set(new Topic("promotion"), 5)
   }
 
 }
