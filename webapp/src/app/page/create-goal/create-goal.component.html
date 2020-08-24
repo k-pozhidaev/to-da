@@ -1,6 +1,6 @@
 <H1>Create task</H1>
 <div class="create-goal-form">
-  <mat-form-field appearance="outline">
+  <mat-form-field appearance="outline" class="goal-text">
     <mat-label>Goal text</mat-label>
     <label>
       <input matInput placeholder="text">
@@ -32,9 +32,9 @@
         <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
       </mat-chip>
       <input
-        placeholder="New fruit..."
-        #fruitInput
-        [formControl]="fruitCtrl"
+        placeholder="Add topic..."
+        #topicInput
+        [formControl]="topicCtrl"
         [matAutocomplete]="auto"
         [matChipInputFor]="chipList"
         [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
@@ -46,4 +46,8 @@
       </mat-option>
     </mat-autocomplete>
   </mat-form-field>
+</div>
+<div class="button-panel">
+  <button mat-raised-button color="primary">Add</button>
+  <button mat-raised-button color="accent">Cancel</button>
 </div>

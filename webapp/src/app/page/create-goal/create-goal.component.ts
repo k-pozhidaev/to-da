@@ -14,22 +14,21 @@ import {MatChipInputEvent} from "@angular/material/chips";
 })
 export class CreateGoalComponent implements OnInit {
 
-  visible = true;
   selectable = true;
   removable = true;
   separatorKeysCodes: number[] = [ENTER, COMMA];
-  fruitCtrl = new FormControl();
+  topicCtrl = new FormControl();
   filteredTopics: Observable<string[]>;
   topics: string[] = [];
-  allFruits: string[] = ['sport', 'apartments', 'promotion'];
+  allTopics: string[] = ['sport', 'apartments', 'promotion'];
 
-  @ViewChild('fruitInput') fruitInput: ElementRef<HTMLInputElement>;
+  @ViewChild('topicInput') topicInput: ElementRef<HTMLInputElement>;
   @ViewChild('auto') matAutocomplete: MatAutocomplete;
 
   constructor() {
-    this.filteredTopics = this.fruitCtrl.valueChanges.pipe(
+    this.filteredTopics = this.topicCtrl.valueChanges.pipe(
       startWith(null),
-      map((fruit: string | null) => fruit ? this._filter(fruit) : this.allFruits.slice()));
+      map((v: string | null) => v ? this._filter(v) : this.allTopics.slice()));
   }
 
   types : string[]
@@ -53,7 +52,7 @@ export class CreateGoalComponent implements OnInit {
       input.value = '';
     }
 
-    this.fruitCtrl.setValue(null);
+    this.topicCtrl.setValue(null);
   }
 
   remove(topic: string): void {
@@ -66,14 +65,14 @@ export class CreateGoalComponent implements OnInit {
 
   selected(event: MatAutocompleteSelectedEvent): void {
     this.topics.push(event.option.viewValue);
-    this.fruitInput.nativeElement.value = '';
-    this.fruitCtrl.setValue(null);
+    this.topicInput.nativeElement.value = '';
+    this.topicCtrl.setValue(null);
   }
 
 
   private _filter(value: string): string[] {
     const filterValue = value.toLowerCase();
 
-    return this.allFruits.filter(fruit => fruit.toLowerCase().indexOf(filterValue) === 0);
+    return this.allTopics.filter(v => v.toLowerCase().indexOf(filterValue) === 0);
   }
 }
