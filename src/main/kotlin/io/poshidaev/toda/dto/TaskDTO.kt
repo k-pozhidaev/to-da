@@ -1,11 +1,15 @@
 package io.poshidaev.toda.dto
 
-import io.poshidaev.toda.entity.GoalStatus
-import io.poshidaev.toda.entity.GoalType
-import io.poshidaev.toda.entity.Task
+import io.poshidaev.toda.entity.*
 
-data class TaskDTO (val id: Long, val text: String, val type: GoalType, val status: GoalStatus, val  trialsCount: Int, val  approachesCount: Int){
-    fun toTask() : Task {
-        return Task(id, text, type, status, trialsCount, approachesCount)
+data class TaskDTO (
+        val id: Long,
+        val text: String,
+        val type: GoalType,
+        val trialsCount: Int,
+        val topics: List<TopicDTO>
+){
+    fun toTask() : Goal {
+        return Goal(id, text, type, trialsCount, topics.map { Topic(it.text) })
     }
 }

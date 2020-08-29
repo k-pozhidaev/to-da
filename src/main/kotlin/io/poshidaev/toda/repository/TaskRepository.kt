@@ -1,6 +1,6 @@
 package io.poshidaev.toda.repository
 
-import io.poshidaev.toda.entity.Task
+import io.poshidaev.toda.entity.Goal
 import org.springframework.data.jpa.repository.JpaRepository
 
-interface TaskRepository : JpaRepository<Task, Long>
+interface TaskRepository : JpaRepository<Goal, Long>

@@ -1,11 +1,15 @@
 import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
 import {GoalType} from "../../models/goal-type.enum";
-import {FormControl} from "@angular/forms";
+import {FormControl, NgForm} from "@angular/forms";
 import {COMMA, ENTER} from "@angular/cdk/keycodes";
 import {Observable} from "rxjs";
 import {MatAutocomplete, MatAutocompleteSelectedEvent} from "@angular/material/autocomplete";
 import {map, startWith} from 'rxjs/operators';
 import {MatChipInputEvent} from "@angular/material/chips";
+import {Goal} from "../../models/goal";
+import {Topic} from "../../models/topic";
+import {HttpClient} from "@angular/common/http";
+import {Task} from "protractor/built/taskScheduler";
 
 @Component({
   selector: 'app-create-goal',
@@ -21,6 +25,7 @@ export class CreateGoalComponent implements OnInit {
   filteredTopics: Observable<string[]>;
   topics: string[] = [];
   allTopics: string[] = ['sport', 'apartments', 'promotion'];
+  // http: HttpClient = new HttpClient()
 
   @ViewChild('topicInput') topicInput: ElementRef<HTMLInputElement>;
   @ViewChild('auto') matAutocomplete: MatAutocomplete;
@@ -37,6 +42,22 @@ export class CreateGoalComponent implements OnInit {
     this.types = Object.keys(GoalType)
   }
 
+  submit(createForm: NgForm) : void {
+    console.log(createForm.value)
+    console.log(this.topics)
+
+    const g = new Goal(
+      null,
+      createForm.value.text,
+      GoalType[createForm.value.type],
+      null,
+      0,
+      createForm.value.approachesCount,
+      this.topics.map(v => new Topic(v))
+    )
+    console.log(g)
+    // this.http.post<Task>("/api/task/", g).subscribe() todo implement
+  }
 
   add(event: MatChipInputEvent): void {
     const input = event.input;
