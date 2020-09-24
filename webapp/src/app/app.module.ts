@@ -16,7 +16,7 @@ import { TopicItemComponent } from './page/topics/topic-item/topic-item.componen
 import {MAT_FORM_FIELD_DEFAULT_OPTIONS, MatFormField, MatFormFieldModule} from "@angular/material/form-field";
 import {MatIconModule} from "@angular/material/icon";
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
-import {HttpClientModule} from "@angular/common/http";
+import {HttpClientModule, HttpClient} from "@angular/common/http";
 import {MatAutocompleteModule} from "@angular/material/autocomplete";
 import {MatBottomSheetModule} from "@angular/material/bottom-sheet";
 import {MatBadgeModule} from "@angular/material/badge";
@@ -111,7 +111,8 @@ import {ScrollingModule} from "@angular/cdk/scrolling";
     PortalModule,
     ScrollingModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    HttpClientModule
   ],
   providers: [
     { provide: MAT_FORM_FIELD_DEFAULT_OPTIONS, useValue: { appearance: 'fill' } },

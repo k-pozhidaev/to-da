@@ -10,6 +10,8 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
+import static java.util.stream.Collectors.toList;
+
 
 @Data
 public class GoalDTO {
@@ -21,6 +23,14 @@ public class GoalDTO {
     private Integer trialsCount;
     private List<TopicDTO> topics;
 
+    public GoalDTO(final Goal goal) {
+        this.id = goal.getId();
+        this.text = goal.getText();
+        this.type = goal.getType();
+        this.trialsCount = goal.getTrialsCount();
+        this.topics = goal.getTopics().stream().map(topic -> new TopicDTO(topic.getText())).collect(toList());
+    }
+
     public Goal toEntity() {
         return new Goal(
                 id,
@@ -28,7 +38,7 @@ public class GoalDTO {
                 type,
                 trialsCount,
                 Optional.ofNullable(topics)
-                        .map(tl -> tl.stream().map(TopicDTO::toEntity).collect(Collectors.toList()))
+                        .map(tl -> tl.stream().map(TopicDTO::toEntity).collect(toList()))
                         .orElse(Collections.emptyList())
         );
     }

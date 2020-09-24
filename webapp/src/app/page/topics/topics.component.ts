@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {Topic} from "../../models/topic";
+import {GoalService} from "../../services/goal.service";
 
 @Component({
   selector: 'app-topics',

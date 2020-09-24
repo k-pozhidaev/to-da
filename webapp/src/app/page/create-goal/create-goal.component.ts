@@ -8,8 +8,7 @@ import {map, startWith} from 'rxjs/operators';
 import {MatChipInputEvent} from "@angular/material/chips";
 import {Goal} from "../../models/goal";
 import {Topic} from "../../models/topic";
-import {HttpClient} from "@angular/common/http";
-import {Task} from "protractor/built/taskScheduler";
+import {GoalService} from "../../services/goal.service";
 
 @Component({
   selector: 'app-create-goal',
@@ -25,12 +24,11 @@ export class CreateGoalComponent implements OnInit {
   filteredTopics: Observable<string[]>;
   topics: string[] = [];
   allTopics: string[] = ['sport', 'apartments', 'promotion'];
-  // http: HttpClient = new HttpClient()
 
   @ViewChild('topicInput') topicInput: ElementRef<HTMLInputElement>;
   @ViewChild('auto') matAutocomplete: MatAutocomplete;
 
-  constructor() {
+  constructor(private goalService: GoalService) {
     this.filteredTopics = this.topicCtrl.valueChanges.pipe(
       startWith(null),
       map((v: string | null) => v ? this._filter(v) : this.allTopics.slice()));
@@ -43,20 +41,17 @@ export class CreateGoalComponent implements OnInit {
   }
 
   submit(createForm: NgForm) : void {
-    console.log(createForm.value)
-    console.log(this.topics)
-
-    const g = new Goal(
+    const goal = new Goal(
       null,
       createForm.value.text,
       GoalType[createForm.value.type],
       null,
-      0,
       createForm.value.approachesCount,
+      0,
       this.topics.map(v => new Topic(v))
     )
-    console.log(g)
-    // this.http.post<Task>("/api/task/", g).subscribe() todo implement
+    console.log(goal)
+    this.goalService.addGoal(goal)
   }
 
   add(event: MatChipInputEvent): void {

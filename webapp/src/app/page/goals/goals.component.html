@@ -5,7 +5,7 @@
       <div>
         <div class="goal-text">
           {{ item.text }}
-          <span *ngIf="item.approachesCount > 1">({{ item.trialsCount }}/{{item.approachesCount}})</span>
+          <span *ngIf="item.trialsCount > 1">({{ item.approachesCount }}/{{item.trialsCount}})</span>
         </div>
 
         <div *ngIf="item.topics.length > 0">

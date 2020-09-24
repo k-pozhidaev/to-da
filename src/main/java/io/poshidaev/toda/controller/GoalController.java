@@ -4,6 +4,7 @@ import io.poshidaev.toda.dto.GoalDTO;
 import io.poshidaev.toda.entity.Goal;
 import io.poshidaev.toda.repository.GoalRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
@@ -39,8 +40,9 @@ public class GoalController {
     }
 
     @GetMapping
-    Flux<Goal> getAll(){
-        return wrap( Flux.fromIterable(goalRepository.findAll() ) );
+    @Transactional
+    Flux<GoalDTO> getAll(){
+        return wrap( Flux.fromIterable(goalRepository.getAllWithTopics() ) ).map(GoalDTO::new);
     }
 
     @PostMapping

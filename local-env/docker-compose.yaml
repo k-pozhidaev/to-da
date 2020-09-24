@@ -10,7 +10,14 @@ services:
     restart: always
     environment:
       POSTGRES_PASSWORD: postgres
-
+  idp:
+    image: quay.io/keycloak/keycloak:11.0.2
+    ports:
+    - "9999:8080"
+    restart: always
+    environment:
+      KEYCLOAK_USER: admin
+      KEYCLOAK_PASSWORD: admin
 
 volumes:
   logvolume01: {}

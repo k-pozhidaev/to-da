@@ -4,6 +4,7 @@ import {GoalType} from "../../models/goal-type.enum";
 import {GoalStatus} from "../../models/goal-status.enum";
 import {Topic} from "../../models/topic";
 import {GoalsGridOrderPipe} from "../../pipes/goals-grid-order.pipe";
+import {GoalService} from "../../services/goal.service";
 
 @Component({
   selector: 'app-goals',
@@ -13,17 +14,17 @@ import {GoalsGridOrderPipe} from "../../pipes/goals-grid-order.pipe";
 })
 export class GoalsComponent implements OnInit {
 
-  constructor() { }
+  constructor(private goalService : GoalService) { }
 
   items : Goal[]
 
   ngOnInit(): void {
-    this.items = [
-      new Goal(1, "add money to acc", GoalType.MONTHLY, GoalStatus.IN_PROGRESS, 0, 1, [new Topic("apartments")]),
-      new Goal(3, "find lawyer", GoalType.SINGLE, GoalStatus.DONE, 0, 1, [new Topic("apartments")]),
-      new Goal(2, "подтягивания", GoalType.DAILY, GoalStatus.IN_PROGRESS, 0, 10, [new Topic("sport")]),
-      new Goal(4, "no topic")
-    ]
+    this.goalService.getList().subscribe(
+      value => {
+        console.log(value)
+        this.items = value
+      }
+    )
   }
 
   acceptTrial($event: MouseEvent, item: Goal) {

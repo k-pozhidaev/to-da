@@ -12,8 +12,8 @@ export class Goal {
   topics: Topic[]
 
   constructor(
-    id: Number,
-    text: String,
+    id: Number = null,
+    text: String = null,
     type: GoalType = GoalType.DAILY,
     status: GoalStatus = GoalStatus.IN_PROGRESS,
     trialsCount: number = 0,
