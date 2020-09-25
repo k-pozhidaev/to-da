@@ -8,6 +8,6 @@ import java.util.List;
 
 public interface GoalRepository extends JpaRepository<Goal, Long> {
 
-    @Query("SELECT g FROM Goal AS g LEFT JOIN FETCH g.topics")
+    @Query("SELECT DISTINCT g FROM Goal AS g LEFT JOIN FETCH g.topics")
     List<Goal> getAllWithTopics();
 }

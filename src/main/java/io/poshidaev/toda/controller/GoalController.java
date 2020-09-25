@@ -4,6 +4,7 @@ import io.poshidaev.toda.dto.GoalDTO;
 import io.poshidaev.toda.entity.Goal;
 import io.poshidaev.toda.repository.GoalRepository;
 import io.poshidaev.toda.service.GoalService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
@@ -13,6 +14,7 @@ import reactor.core.scheduler.Scheduler;
 
 @RestController
 @RequestMapping("/api/goal")
+@Slf4j
 public class GoalController {
 
     Scheduler jdbcScheduler;
