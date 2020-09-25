@@ -8,12 +8,12 @@
           <span *ngIf="item.trialsCount > 1">({{ item.approachesCount }}/{{item.trialsCount}})</span>
         </div>
 
-        <div *ngIf="item.topics.length > 0">
+        <div *ngIf="item.topics.length > 0" class="topics">
             <a *ngFor="let topic of item.topics" routerLink="/topic/{{topic.text}}">#{{ topic.text }}</a>
         </div>
       </div>
       <span>
-        <button mat-raised-button color="success" *ngIf="!item.isDone()" (click)="acceptTrial($event, item)">Accept</button>
+        <button mat-raised-button color="success" *ngIf="!item.isDone()" (click)="acceptApproach($event, item)">Accept</button>
         <button mat-raised-button *ngIf="item.isDone()">Repeat</button>
       </span>
     </div>

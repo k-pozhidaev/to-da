@@ -16,8 +16,8 @@ export class Goal {
     text: String = null,
     type: GoalType = GoalType.DAILY,
     status: GoalStatus = GoalStatus.IN_PROGRESS,
-    trialsCount: number = 0,
-    approachesCount: number = 1,
+    trialsCount: number = 1,
+    approachesCount: number = 0,
     topics: Topic[] = []
   ) {
     this.id = id
@@ -34,7 +34,7 @@ export class Goal {
   }
 
   increaseTrial() {
-    this.trialsCount ++
+    this.approachesCount ++
     if (this.trialsCount === this.approachesCount) {
       this.status = GoalStatus.DONE
     }

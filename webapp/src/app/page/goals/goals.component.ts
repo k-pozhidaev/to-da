@@ -27,7 +27,7 @@ export class GoalsComponent implements OnInit {
     )
   }
 
-  acceptTrial($event: MouseEvent, item: Goal) {
+  acceptApproach($event: MouseEvent, item: Goal) {
     item.increaseTrial()
     new GoalsGridOrderPipe().transform(this.items)
   }
