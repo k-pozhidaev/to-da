@@ -4,6 +4,7 @@ import io.poshidaev.toda.entity.Goal;
 import io.poshidaev.toda.entity.GoalType;
 import io.poshidaev.toda.entity.Topic;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.util.Collections;
 import java.util.List;
@@ -14,8 +15,8 @@ import static java.util.stream.Collectors.toList;
 
 
 @Data
+@NoArgsConstructor
 public class GoalDTO {
-
 
     private Long id;
     private String text;
@@ -37,9 +38,7 @@ public class GoalDTO {
                 text,
                 type,
                 trialsCount,
-                Optional.ofNullable(topics)
-                        .map(tl -> tl.stream().map(TopicDTO::toEntity).collect(toList()))
-                        .orElse(Collections.emptyList())
+                null
         );
     }
 }

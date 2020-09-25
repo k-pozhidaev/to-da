@@ -2,9 +2,11 @@ package io.poshidaev.toda.dto;
 
 import io.poshidaev.toda.entity.Topic;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 
 @Data
+@NoArgsConstructor
 public class TopicDTO {
     private String text;
 

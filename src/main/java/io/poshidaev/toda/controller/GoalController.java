@@ -3,6 +3,7 @@ package io.poshidaev.toda.controller;
 import io.poshidaev.toda.dto.GoalDTO;
 import io.poshidaev.toda.entity.Goal;
 import io.poshidaev.toda.repository.GoalRepository;
+import io.poshidaev.toda.service.GoalService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
@@ -16,6 +17,7 @@ public class GoalController {
 
     Scheduler jdbcScheduler;
     GoalRepository goalRepository;
+    GoalService goalService;
 
     @Autowired
     public void setJdbcScheduler(Scheduler jdbcScheduler) {
@@ -25,6 +27,11 @@ public class GoalController {
     @Autowired
     public void setGoalRepository(GoalRepository goalRepository) {
         this.goalRepository = goalRepository;
+    }
+
+    @Autowired
+    public void setGoalService(GoalService goalService) {
+        this.goalService = goalService;
     }
 
     <T> Mono<T> wrap (Mono<T> publisher) {
@@ -46,7 +53,7 @@ public class GoalController {
     }
 
     @PostMapping
-    Mono<Goal> addOne(@RequestBody GoalDTO goal){
-        return wrap( Mono.fromCallable( () -> goalRepository.save(goal.toEntity()) ) );
+    Mono<GoalDTO> addOne(@RequestBody GoalDTO goal){
+        return wrap( Mono.fromCallable( () -> goalService.addGoal(goal) ).map(GoalDTO::new) );
     }
 }
