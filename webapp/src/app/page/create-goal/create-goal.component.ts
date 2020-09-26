@@ -51,7 +51,7 @@ export class CreateGoalComponent implements OnInit {
       this.topics.map(v => new Topic(v))
     )
     console.log(goal)
-    this.goalService.addGoal(goal)
+    this.goalService.addGoal(goal).subscribe()
   }
 
   add(event: MatChipInputEvent): void {

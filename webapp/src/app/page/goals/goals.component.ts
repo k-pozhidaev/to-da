@@ -1,8 +1,5 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, ViewChild} from '@angular/core';
 import {Goal} from "../../models/goal";
-import {GoalType} from "../../models/goal-type.enum";
-import {GoalStatus} from "../../models/goal-status.enum";
-import {Topic} from "../../models/topic";
 import {GoalsGridOrderPipe} from "../../pipes/goals-grid-order.pipe";
 import {GoalService} from "../../services/goal.service";
 
@@ -14,9 +11,10 @@ import {GoalService} from "../../services/goal.service";
 })
 export class GoalsComponent implements OnInit {
 
+
   constructor(private goalService : GoalService) { }
 
-  items : Goal[]
+  items : Goal[] = []
 
   ngOnInit(): void {
     this.goalService.getList().subscribe(
@@ -28,7 +26,14 @@ export class GoalsComponent implements OnInit {
   }
 
   acceptApproach($event: MouseEvent, item: Goal) {
-    item.increaseTrial()
-    new GoalsGridOrderPipe().transform(this.items)
+    let target = ($event.currentTarget as HTMLButtonElement)
+    target.disabled = true;
+    this.goalService.addApproach(item).subscribe(
+      value => {
+        target.disabled = false
+        item.approachesCount = value.valueOf()
+      },
+      error => { target.disabled = false }
+    )
   }
 }

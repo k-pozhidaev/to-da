@@ -34,11 +34,21 @@ export class GoalService {
     )
   }
 
-  addGoal(goal: Goal) {
-    return this.http.post("/api/goal", goal).subscribe(
-      goal => console.log(goal),
-      err => console.error(err)
+  addGoal(goal: Goal) : Observable<Goal> {
+    return this.http.post("/api/goal", goal).pipe(
+      map(v =>
+        {
+          let goal = new Goal()
+          Object.assign(goal, v)
+          return goal
+        }
+
+      )
     )
+  }
+
+  addApproach(goal: Goal) : Observable<Number>{
+    return this.http.patch<Number>(`/api/goal/${goal.id}`, null)
   }
 
   getOne() {

@@ -36,26 +36,30 @@ public class GoalController {
         this.goalService = goalService;
     }
 
-    <T> Mono<T> wrap (Mono<T> publisher) {
+    <T> Mono<T> wrap (final Mono<T> publisher) {
         return Mono.defer(() -> publisher ).subscribeOn(jdbcScheduler);
     }
-    <T> Flux<T> wrap (Flux<T> publisher) {
+    <T> Flux<T> wrap (final Flux<T> publisher) {
         return Flux.defer(() -> publisher ).subscribeOn(jdbcScheduler);
     }
 
     @GetMapping("/{id}")
-    Mono<Goal> getOne(@PathVariable Long id){
-        return wrap( Mono.fromCallable( () -> goalRepository.getOne(id) )  );
+    Mono<GoalDTO> getOne(@PathVariable final Long id){
+        return wrap( Mono.fromCallable( () -> goalService.getOne(id) ) );
     }
 
     @GetMapping
-    @Transactional
     Flux<GoalDTO> getAll(){
         return wrap( Flux.fromIterable(goalRepository.getAllWithTopics() ) ).map(GoalDTO::new);
     }
 
     @PostMapping
-    Mono<GoalDTO> addOne(@RequestBody GoalDTO goal){
+    Mono<GoalDTO> addOne(@RequestBody final GoalDTO goal){
         return wrap( Mono.fromCallable( () -> goalService.addGoal(goal) ).map(GoalDTO::new) );
+    }
+
+    @PatchMapping("/{id}")
+    Mono<Integer> addApproach(@PathVariable final Long id){
+        return wrap( Mono.fromCallable(() -> goalService.addApproach(id)));
     }
 }

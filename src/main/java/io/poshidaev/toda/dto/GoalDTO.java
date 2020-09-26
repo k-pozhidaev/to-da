@@ -23,6 +23,7 @@ public class GoalDTO {
     private GoalType type;
     private Integer trialsCount;
     private List<TopicDTO> topics;
+    private Integer approachesCount;
 
     public GoalDTO(final Goal goal) {
         this.id = goal.getId();
@@ -30,6 +31,7 @@ public class GoalDTO {
         this.type = goal.getType();
         this.trialsCount = goal.getTrialsCount();
         this.topics = goal.getTopics().stream().map(topic -> new TopicDTO(topic.getText())).collect(toList());
+        this.approachesCount = 0;
     }
 
     public Goal toEntity() {
