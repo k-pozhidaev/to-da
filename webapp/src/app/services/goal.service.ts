@@ -47,11 +47,24 @@ export class GoalService {
     )
   }
 
-  addApproach(goal: Goal) : Observable<Number>{
-    return this.http.patch<Number>(`/api/goal/${goal.id}`, null)
+  addApproach(goal: Goal, date: Date) : Observable<Number>{
+    return this.http.patch<Number>(`/api/goal/${goal.id}/${this.dateToString(date)}`, null)
   }
 
   getOne() {
 
+  }
+
+  private dateToString(date: Date) : String {
+    let month = '' + (date.getMonth() + 1),
+    day = '' + date.getDate(),
+    year = date.getFullYear();
+
+    if (month.length < 2)
+      month = '0' + month;
+    if (day.length < 2)
+      day = '0' + day;
+
+    return [year, month, day].join('-');
   }
 }

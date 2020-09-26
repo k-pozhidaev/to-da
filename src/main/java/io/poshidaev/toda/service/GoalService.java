@@ -13,7 +13,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.Date;
+import java.sql.Date;
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
@@ -70,13 +71,13 @@ public class GoalService {
         return goalRepository.save(goal);
     }
 
-    public Integer addApproach(final Long id) {
+    public Integer addApproach(final Long id, final LocalDate date) {
         final Goal goal = goalRepository.getOne(id);
-        GoalApproach goalApproach = new GoalApproach(new Date(), goal);
+        GoalApproach goalApproach = new GoalApproach(Date.valueOf(date), goal);
         goalApproach = goalApproachRepository.save(goalApproach);
         goal.getApproaches().add(goalApproach);
         goalRepository.save(goal);
-        return goal.getApproaches().size();
+        return goalApproachRepository.countByGoal_IdAndAndDate(id, Date.valueOf(date));
 
     }
 }

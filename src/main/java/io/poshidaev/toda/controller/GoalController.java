@@ -1,16 +1,22 @@
 package io.poshidaev.toda.controller;
 
 import io.poshidaev.toda.dto.GoalDTO;
-import io.poshidaev.toda.entity.Goal;
+import io.poshidaev.toda.repository.GoalApproachRepository;
 import io.poshidaev.toda.repository.GoalRepository;
 import io.poshidaev.toda.service.GoalService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.transaction.annotation.Transactional;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.web.bind.annotation.*;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 import reactor.core.scheduler.Scheduler;
+
+import java.sql.Date;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.util.Calendar;
+import java.util.List;
 
 @RestController
 @RequestMapping("/api/goal")
@@ -36,6 +42,13 @@ public class GoalController {
         this.goalService = goalService;
     }
 
+    GoalApproachRepository goalApproachRepository;
+
+    @Autowired
+    public void setGoalApproachRepository(GoalApproachRepository goalApproachRepository) {
+        this.goalApproachRepository = goalApproachRepository;
+    }
+
     <T> Mono<T> wrap (final Mono<T> publisher) {
         return Mono.defer(() -> publisher ).subscribeOn(jdbcScheduler);
     }
@@ -58,8 +71,16 @@ public class GoalController {
         return wrap( Mono.fromCallable( () -> goalService.addGoal(goal) ).map(GoalDTO::new) );
     }
 
-    @PatchMapping("/{id}")
-    Mono<Integer> addApproach(@PathVariable final Long id){
-        return wrap( Mono.fromCallable(() -> goalService.addApproach(id)));
+    @PatchMapping("/{id}/{date}")
+    Mono<Integer> addApproach(@PathVariable final Long id, @DateTimeFormat(pattern = "yyyy-MM-dd") @PathVariable final LocalDate date){
+        return wrap( Mono.fromCallable(() -> goalService.addApproach(id, date)));
+    }
+
+    @GetMapping("/a") //todo temp
+    Mono<List<List<Long>>> getA(){
+        return Mono.fromCallable(() -> goalApproachRepository.getCountByListIds(
+                List.of(24L, 25L, 34L, 50L),
+                Date.valueOf(LocalDate.of(2020, 9,26)))
+        );
     }
 }

@@ -2,14 +2,10 @@ package io.poshidaev.toda.dto;
 
 import io.poshidaev.toda.entity.Goal;
 import io.poshidaev.toda.entity.GoalType;
-import io.poshidaev.toda.entity.Topic;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.Collections;
 import java.util.List;
-import java.util.Optional;
-import java.util.stream.Collectors;
 
 import static java.util.stream.Collectors.toList;
 

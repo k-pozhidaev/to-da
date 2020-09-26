@@ -14,6 +14,7 @@ export class GoalsComponent implements OnInit {
 
   constructor(private goalService : GoalService) { }
 
+  currentDate : Date = new Date()
   items : Goal[] = []
 
   ngOnInit(): void {
@@ -28,7 +29,7 @@ export class GoalsComponent implements OnInit {
   acceptApproach($event: MouseEvent, item: Goal) {
     let target = ($event.currentTarget as HTMLButtonElement)
     target.disabled = true;
-    this.goalService.addApproach(item).subscribe(
+    this.goalService.addApproach(item, this.currentDate).subscribe(
       value => {
         target.disabled = false
         item.approachesCount = value.valueOf()
