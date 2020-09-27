@@ -1,6 +1,7 @@
 package io.poshidaev.toda.repository;
 
 import io.poshidaev.toda.entity.GoalApproach;
+import io.poshidaev.toda.entity.GoalType;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -18,6 +19,30 @@ GROUP BY e.goal.id""")
     List<List<Long>> getDailyCountByGoalListIdsAndDate(
             @Param("ids") List<Long> ids,
             @Param("date") Date date
+    );
+
+    @Query("""
+SELECT e.goal.id, COUNT(e) 
+FROM GoalApproach AS e 
+WHERE e.goal.id in :ids AND e.goal.type = io.poshidaev.toda.entity.GoalType.SINGLE
+GROUP BY e.goal.id
+""")
+    List<List<Long>> getSingleCountByGoalListIds(@Param("ids") List<Long> ids);
+
+    @Query("""
+SELECT e.goal.id, COUNT(e) 
+FROM GoalApproach AS e 
+WHERE e.goal.id in :ids 
+AND e.date >= :startDate
+AND e.date <= :endDate
+AND e.goal.type = :type
+GROUP BY e.goal.id
+""")
+    List<List<Long>> getCountByGoalsIdAndDatesRangeAndType(
+            @Param("ids") List<Long> ids,
+            @Param("startDate") Date startDate,
+            @Param("endDate") Date endDate,
+            @Param("type") GoalType type
     );
 
     Integer countByGoal_IdAndDate(Long id, Date date);
