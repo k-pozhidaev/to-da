@@ -3,6 +3,7 @@ import {HttpClient} from '@angular/common/http';
 import {Goal} from "../models/goal";
 import {catchError, map} from "rxjs/operators";
 import {Observable, of} from "rxjs";
+import {GoalStatus} from "../models/goal-status.enum";
 
 @Injectable({
   providedIn: 'root'
@@ -27,6 +28,7 @@ export class GoalService {
           v.map(g => {
             let goal = new Goal()
             Object.assign(goal, g)
+            goal.doneStatusCheck()
             return goal
           })
 

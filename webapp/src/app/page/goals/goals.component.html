@@ -5,11 +5,11 @@
       <div>
         <div class="goal-text">
           {{ item.text }}
-          <span *ngIf="item.trialsCount > 1">({{ item.approachesCount }}/{{item.trialsCount}})</span>
+          <span *ngIf="item.trialsCount > 1">({{item.approachesCount}}/{{item.trialsCount}})</span>
         </div>
 
         <div *ngIf="item.topics.length > 0" class="topics">
-            <a *ngFor="let topic of item.topics" routerLink="/topic/{{topic.text}}">#{{ topic.text }}</a>
+            <a *ngFor="let topic of item.topics" routerLink="/topic/{{topic.text}}">#{{topic.text}}</a>
         </div>
       </div>
       <span>
@@ -18,6 +18,5 @@
       </span>
     </div>
   </div>
-
 </div>
 

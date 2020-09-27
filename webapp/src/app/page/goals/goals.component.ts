@@ -33,6 +33,8 @@ export class GoalsComponent implements OnInit {
       value => {
         target.disabled = false
         item.approachesCount = value.valueOf()
+        item.doneStatusCheck()
+        new GoalsGridOrderPipe().transform(this.items)
       },
       error => { target.disabled = false }
     )

@@ -30,14 +30,11 @@ export class Goal {
   }
 
   isDone() : boolean {
-    return this.status === GoalStatus.DONE
+    return this.trialsCount <= this.approachesCount
   }
 
-  increaseTrial() {
-    this.approachesCount ++
-    if (this.trialsCount === this.approachesCount) {
-      this.status = GoalStatus.DONE
-    }
+  doneStatusCheck() : void {
+    if (this.isDone()) this.status = GoalStatus.DONE
   }
 
   addTopic(topic: Topic) : void {
