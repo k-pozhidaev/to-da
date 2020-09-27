@@ -8,6 +8,13 @@ group = 'io.poshidaev'
 version = '0.0.1-SNAPSHOT'
 sourceCompatibility = '14'
 
+compileJava {
+	options.compilerArgs += ["--enable-preview"]
+}
+test {
+	jvmArgs '--enable-preview'
+}
+
 configurations {
 	compileOnly {
 		extendsFrom annotationProcessor

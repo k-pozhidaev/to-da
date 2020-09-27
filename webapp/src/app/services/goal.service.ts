@@ -21,8 +21,8 @@ export class GoalService {
   }
 
   getList(): Observable<Goal[]> {
-    return this.http.get<Array<any>>("/api/goal").pipe(
-      catchError(this.handleError('getAllBrands', [])),
+    return this.http.get<Array<any>>("/api/goal/date").pipe(
+      catchError(this.handleError('getAllGoals', [])),
       map(v =>
           v.map(g => {
             let goal = new Goal()
@@ -48,14 +48,14 @@ export class GoalService {
   }
 
   addApproach(goal: Goal, date: Date) : Observable<Number>{
-    return this.http.patch<Number>(`/api/goal/${goal.id}/${this.dateToString(date)}`, null)
+    return this.http.patch<Number>(`/api/goal/${goal.id}/${GoalService.dateToString(date)}`, null)
   }
 
   getOne() {
 
   }
 
-  private dateToString(date: Date) : String {
+  private static dateToString(date: Date) : String {
     let month = '' + (date.getMonth() + 1),
     day = '' + date.getDate(),
     year = date.getFullYear();

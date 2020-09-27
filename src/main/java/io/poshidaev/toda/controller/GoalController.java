@@ -1,6 +1,7 @@
 package io.poshidaev.toda.controller;
 
 import io.poshidaev.toda.dto.GoalDTO;
+import io.poshidaev.toda.entity.GoalType;
 import io.poshidaev.toda.repository.GoalApproachRepository;
 import io.poshidaev.toda.repository.GoalRepository;
 import io.poshidaev.toda.service.GoalService;
@@ -17,6 +18,7 @@ import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.util.Calendar;
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/goal")
@@ -61,9 +63,13 @@ public class GoalController {
         return wrap( Mono.fromCallable( () -> goalService.getOne(id) ) );
     }
 
-    @GetMapping
-    Flux<GoalDTO> getAll(){
-        return wrap( Flux.fromIterable(goalRepository.getAllWithTopics() ) ).map(GoalDTO::new);
+    @GetMapping(value = {"/date", "/date/{date}"})
+    Flux<GoalDTO> getAll(@DateTimeFormat(pattern = "yyyy-MM-dd") @PathVariable("date") final Optional<LocalDate> date){
+        return wrap( Flux.fromIterable(
+                goalService.getAllWithTopicsAndApproachesCount(
+                    date.orElse(LocalDate.now())
+                )
+        ) );
     }
 
     @PostMapping
@@ -72,15 +78,19 @@ public class GoalController {
     }
 
     @PatchMapping("/{id}/{date}")
-    Mono<Integer> addApproach(@PathVariable final Long id, @DateTimeFormat(pattern = "yyyy-MM-dd") @PathVariable final LocalDate date){
+    Mono<Integer> addApproach(
+            @PathVariable final Long id,
+            @DateTimeFormat(pattern = "yyyy-MM-dd") @PathVariable final LocalDate date
+    ) {
         return wrap( Mono.fromCallable(() -> goalService.addApproach(id, date)));
     }
 
     @GetMapping("/a") //todo temp
     Mono<List<List<Long>>> getA(){
-        return Mono.fromCallable(() -> goalApproachRepository.getCountByListIds(
+        return Mono.fromCallable(() -> goalApproachRepository.getDailyCountByGoalListIdsAndDate(
                 List.of(24L, 25L, 34L, 50L),
-                Date.valueOf(LocalDate.of(2020, 9,26)))
+                Date.valueOf(LocalDate.of(2020, 9,26))
+            )
         );
     }
 }

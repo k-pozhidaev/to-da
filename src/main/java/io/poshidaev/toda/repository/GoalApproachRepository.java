@@ -10,8 +10,15 @@ import java.util.List;
 
 public interface GoalApproachRepository extends JpaRepository<GoalApproach, Long> {
 
-    @Query("SELECT e.goal.id, COUNT(e) FROM GoalApproach AS e WHERE e.goal.id in :ids AND e.date = :date GROUP BY e.goal.id")
-    List<List<Long>> getCountByListIds(@Param("ids") List<Long> ids, @Param("date") Date date);
+    @Query("""
+SELECT e.goal.id, COUNT(e) 
+FROM GoalApproach AS e 
+WHERE e.goal.id in :ids AND e.date = :date AND e.goal.type = io.poshidaev.toda.entity.GoalType.DAILY 
+GROUP BY e.goal.id""")
+    List<List<Long>> getDailyCountByGoalListIdsAndDate(
+            @Param("ids") List<Long> ids,
+            @Param("date") Date date
+    );
 
-    Integer countByGoal_IdAndAndDate(Long id, Date date);
+    Integer countByGoal_IdAndDate(Long id, Date date);
 }

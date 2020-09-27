@@ -17,6 +17,7 @@ import java.sql.Date;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import static java.util.Collections.emptyList;
 import static java.util.stream.Collectors.toList;
@@ -60,10 +61,10 @@ public class GoalService {
         log.info("Topics found: {}",topicsExists.size());
         if (dto.getTopics() != null && topicsExists.size() != dto.getTopics().size()) {
             topicsExists.addAll(
-                    dto.getTopics().stream()
-                    .filter(d -> topicsExists.stream().noneMatch(e -> d.getText().equals(e.getText())))
-                    .map(d -> new Topic(d.getText()))
-                    .collect(toList())
+                    topicRepository.saveAll(dto.getTopics().stream()
+                            .filter(d -> topicsExists.stream().noneMatch(e -> d.getText().equals(e.getText())))
+                            .map(d -> new Topic(d.getText()))
+                            .collect(toList()))
             );
         }
         final Goal goal = dto.toEntity();
@@ -77,7 +78,23 @@ public class GoalService {
         goalApproach = goalApproachRepository.save(goalApproach);
         goal.getApproaches().add(goalApproach);
         goalRepository.save(goal);
-        return goalApproachRepository.countByGoal_IdAndAndDate(id, Date.valueOf(date));
+        return goalApproachRepository.countByGoal_IdAndDate(id, Date.valueOf(date));
 
+    }
+
+    public List<GoalDTO> getAllWithTopicsAndApproachesCount(final LocalDate date) {
+        final List<GoalDTO> allWithTopics = goalRepository.getAllWithTopics()
+                .stream()
+                .map(GoalDTO::new)
+                .collect(Collectors.toUnmodifiableList());
+        final List<List<Long>> dailyCount = goalApproachRepository.getDailyCountByGoalListIdsAndDate(
+                allWithTopics.stream().map(GoalDTO::getId).collect(Collectors.toList()),
+                Date.valueOf(date));
+        allWithTopics
+                .forEach(goalDTO -> dailyCount.stream()
+                        .filter(l -> l.get(0).equals(goalDTO.getId()))
+                        .findFirst()
+                        .ifPresent(l -> goalDTO.setApproachesCount(l.get(1).intValue())));
+        return allWithTopics;
     }
 }
