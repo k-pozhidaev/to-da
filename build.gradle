@@ -21,7 +21,7 @@ publishing {
 	repositories {
 		maven {
 			name = "GitHubPackages"
-			url = "https://maven.pkg.github.com/octocat/hello-world"
+			url = "https://maven.pkg.github.com/k-pozhidaev/to-da"
 			credentials {
 				username = System.getenv("GITHUB_ACTOR")
 				password = System.getenv("GITHUB_TOKEN")
@@ -51,11 +51,6 @@ dependencies {
 	}
 	testImplementation 'io.projectreactor:reactor-test'
 }
-
-//task myTask() {
-//	System.properties.each {println "${it.key}: ${it.value}" }
-//
-//}
 
 test {
 	useJUnitPlatform()
