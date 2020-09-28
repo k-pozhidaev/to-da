@@ -83,7 +83,26 @@ public class GoalService {
         goalApproach = goalApproachRepository.save(goalApproach);
         goal.getApproaches().add(goalApproach);
         goalRepository.save(goal);
-        return goalApproachRepository.countByGoal_IdAndDate(id, Date.valueOf(date));
+        return switch (goal.getType()){
+            case DAILY -> goalApproachRepository.countByGoal_IdAndDate(id, Date.valueOf(date));
+            case WEEKLY -> {
+                final DatesRange weekRange = firstAndLastDaysOfWeek(date);
+                yield goalApproachRepository.countByGoal_IdAndDateGreaterThanEqualAndDateLessThanEqual(
+                    id,
+                    Date.valueOf(weekRange.getStartDate()),
+                    Date.valueOf(weekRange.getEndDate())
+                );
+            }
+            case MONTHLY -> {
+                DatesRange monthRange = firstAndLastDaysOfMonth(date);
+                yield goalApproachRepository.countByGoal_IdAndDateGreaterThanEqualAndDateLessThanEqual(
+                    id,
+                    Date.valueOf(monthRange.getStartDate()),
+                    Date.valueOf(monthRange.getEndDate())
+                );
+            }
+            case SINGLE -> goalApproachRepository.countByGoal_Id(id);
+        };
 
     }
 

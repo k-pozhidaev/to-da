@@ -1,7 +1,6 @@
 package io.poshidaev.toda.controller;
 
 import io.poshidaev.toda.dto.GoalDTO;
-import io.poshidaev.toda.entity.GoalType;
 import io.poshidaev.toda.repository.GoalApproachRepository;
 import io.poshidaev.toda.repository.GoalRepository;
 import io.poshidaev.toda.service.GoalService;
@@ -13,11 +12,7 @@ import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 import reactor.core.scheduler.Scheduler;
 
-import java.sql.Date;
-import java.text.SimpleDateFormat;
 import java.time.LocalDate;
-import java.util.Calendar;
-import java.util.List;
 import java.util.Optional;
 
 @RestController
@@ -44,12 +39,6 @@ public class GoalController {
         this.goalService = goalService;
     }
 
-    GoalApproachRepository goalApproachRepository;
-
-    @Autowired
-    public void setGoalApproachRepository(GoalApproachRepository goalApproachRepository) {
-        this.goalApproachRepository = goalApproachRepository;
-    }
 
     <T> Mono<T> wrap (final Mono<T> publisher) {
         return Mono.defer(() -> publisher ).subscribeOn(jdbcScheduler);
@@ -85,12 +74,4 @@ public class GoalController {
         return wrap( Mono.fromCallable(() -> goalService.addApproach(id, date)));
     }
 
-    @GetMapping("/a") //todo temp
-    Mono<List<List<Long>>> getA(){
-        return Mono.fromCallable(() -> goalApproachRepository.getDailyCountByGoalListIdsAndDate(
-                List.of(24L, 25L, 34L, 50L),
-                Date.valueOf(LocalDate.of(2020, 9,26))
-            )
-        );
-    }
 }

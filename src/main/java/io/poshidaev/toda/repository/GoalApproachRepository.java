@@ -46,4 +46,12 @@ GROUP BY e.goal.id
     );
 
     Integer countByGoal_IdAndDate(Long id, Date date);
+
+    Integer countByGoal_IdAndDateGreaterThanEqualAndDateLessThanEqual(
+            Long id,
+            Date startDate,
+            Date endDate
+    );
+
+    Integer countByGoal_Id(Long id);
 }
