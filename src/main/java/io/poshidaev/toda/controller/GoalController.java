@@ -1,7 +1,6 @@
 package io.poshidaev.toda.controller;
 
 import io.poshidaev.toda.dto.GoalDTO;
-import io.poshidaev.toda.repository.GoalApproachRepository;
 import io.poshidaev.toda.repository.GoalRepository;
 import io.poshidaev.toda.service.GoalService;
 import lombok.extern.slf4j.Slf4j;

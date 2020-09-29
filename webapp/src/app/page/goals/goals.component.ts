@@ -2,6 +2,7 @@ import {Component, OnInit, ViewChild} from '@angular/core';
 import {Goal} from "../../models/goal";
 import {GoalsGridOrderPipe} from "../../pipes/goals-grid-order.pipe";
 import {GoalService} from "../../services/goal.service";
+import {GoalType} from "../../models/goal-type.enum";
 
 @Component({
   selector: 'app-goals',
@@ -38,5 +39,24 @@ export class GoalsComponent implements OnInit {
       },
       error => { target.disabled = false }
     )
+  }
+
+  getIconStyleNameFromGoal(item:Goal) : String {
+    let style
+    switch (item.type){
+      case GoalType.DAILY:
+        style = "fa-calendar-day"
+        break
+      case GoalType.WEEKLY:
+        style = "fa-calendar-week"
+        break
+      case GoalType.MONTHLY:
+        style = "fa-calendar-alt"
+        break
+      case GoalType.SINGLE:
+        style = "fa-calendar-plus"
+        break
+    }
+    return style
   }
 }

@@ -4,6 +4,7 @@
     <div class="goal-item-content">
       <div>
         <div class="goal-text">
+          <i class="fa {{getIconStyleNameFromGoal(item)}}" aria-hidden="true" matTooltip="{{item.type}}"></i>
           {{ item.text }}
           <span *ngIf="item.trialsCount > 1">({{item.approachesCount}}/{{item.trialsCount}})</span>
         </div>

@@ -162,7 +162,7 @@ public class GoalService {
     @AllArgsConstructor
     @Getter
     static class DatesRange {
-        private LocalDate startDate;
-        private LocalDate endDate;
+        private final LocalDate startDate;
+        private final LocalDate endDate;
     }
 }
