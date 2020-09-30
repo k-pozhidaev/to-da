@@ -50,6 +50,9 @@ export class CreateGoalComponent implements OnInit {
       0,
       this.topics.map(v => new Topic(v))
     )
+    if (this.topicInput.nativeElement.value !== '') {
+      goal.topics.push(new Topic(this.topicInput.nativeElement.value))
+    }
     console.log(goal)
     this.goalService.addGoal(goal).subscribe()
   }
