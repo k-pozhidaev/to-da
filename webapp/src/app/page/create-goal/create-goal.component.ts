@@ -1,6 +1,6 @@
-import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
+import {Component, ElementRef, Input, OnInit, ViewChild} from '@angular/core';
 import {GoalType} from "../../models/goal-type.enum";
-import {FormControl, NgForm} from "@angular/forms";
+import {FormControl, FormGroup, NgForm, Validators} from "@angular/forms";
 import {COMMA, ENTER} from "@angular/cdk/keycodes";
 import {Observable} from "rxjs";
 import {MatAutocomplete, MatAutocompleteSelectedEvent} from "@angular/material/autocomplete";
@@ -21,40 +21,50 @@ export class CreateGoalComponent implements OnInit {
   removable = true;
   separatorKeysCodes: number[] = [ENTER, COMMA];
   topicCtrl = new FormControl();
-  filteredTopics: Observable<string[]>;
-  topics: string[] = [];
-  allTopics: string[] = ['sport', 'apartments', 'promotion'];
+  filteredTopics: Observable<Topic[]>;
+  // topics: string[] = [];
+  allTopics: Topic[] = ['sport', 'apartments', 'promotion'].map(s => new Topic(s));
 
-  @ViewChild('topicInput') topicInput: ElementRef<HTMLInputElement>;
-  @ViewChild('auto') matAutocomplete: MatAutocomplete;
+  @Input('goal') goal : Goal
+
+  @ViewChild('topicInput') topicInput: ElementRef<HTMLInputElement>
+  @ViewChild('auto') matAutocomplete: MatAutocomplete
+  @ViewChild('addButton') addButton: ElementRef<HTMLButtonElement>
+  @ViewChild('createForm') createForm: NgForm
 
   constructor(private goalService: GoalService) {
     this.filteredTopics = this.topicCtrl.valueChanges.pipe(
       startWith(null),
-      map((v: string | null) => v ? this._filter(v) : this.allTopics.slice()));
+      map((v: Topic | null) => v ? this._filter(v) : this.allTopics.slice()));
   }
 
   types : string[]
 
+  _reset() : void {
+    this.goal = new Goal(
+      null,
+      "",
+      GoalType.DAILY,
+      null,
+      1,
+      0,
+      []
+    );
+  }
+
   ngOnInit(): void {
     this.types = Object.keys(GoalType)
+    if (this.goal == null) this._reset()
   }
 
   submit(createForm: NgForm) : void {
-    const goal = new Goal(
-      null,
-      createForm.value.text,
-      GoalType[createForm.value.type],
-      null,
-      createForm.value.approachesCount,
-      0,
-      this.topics.map(v => new Topic(v))
-    )
     if (this.topicInput.nativeElement.value !== '') {
-      goal.topics.push(new Topic(this.topicInput.nativeElement.value))
+      this.goal.topics.push(new Topic(this.topicInput.nativeElement.value))
     }
-    console.log(goal)
-    this.goalService.addGoal(goal).subscribe()
+    console.log(this.goal)
+    this.goalService.addGoal(this.goal).subscribe(
+      _ => this._reset()
+    )
   }
 
   add(event: MatChipInputEvent): void {
@@ -63,7 +73,7 @@ export class CreateGoalComponent implements OnInit {
 
     // Add topic
     if ((value || '').trim()) {
-      this.topics.push(value.trim());
+      this.goal.topics.push(new Topic(value.trim()));
     }
 
     // Reset the input value
@@ -74,24 +84,24 @@ export class CreateGoalComponent implements OnInit {
     this.topicCtrl.setValue(null);
   }
 
-  remove(topic: string): void {
-    const index = this.topics.indexOf(topic);
+  remove(topic: Topic): void {
+    const index = this.goal.topics.indexOf(topic);
 
     if (index >= 0) {
-      this.topics.splice(index, 1);
+      this.goal.topics.splice(index, 1);
     }
   }
 
   selected(event: MatAutocompleteSelectedEvent): void {
-    this.topics.push(event.option.viewValue);
+    this.goal.topics.push(new Topic(event.option.viewValue));
     this.topicInput.nativeElement.value = '';
     this.topicCtrl.setValue(null);
   }
 
 
-  private _filter(value: string): string[] {
-    const filterValue = value.toLowerCase();
+  private _filter(value: Topic): Topic[] {
+    const filterValue = value.text.toLowerCase();
 
-    return this.allTopics.filter(v => v.toLowerCase().indexOf(filterValue) === 0);
+    return this.allTopics.filter(v => v.text.toLowerCase().indexOf(filterValue) === 0);
   }
 }
