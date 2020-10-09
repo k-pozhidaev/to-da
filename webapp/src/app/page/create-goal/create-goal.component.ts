@@ -22,7 +22,6 @@ export class CreateGoalComponent implements OnInit {
   separatorKeysCodes: number[] = [ENTER, COMMA];
   topicCtrl = new FormControl();
   filteredTopics: Observable<Topic[]>;
-  // topics: string[] = [];
   allTopics: Topic[] = ['sport', 'apartments', 'promotion'].map(s => new Topic(s));
 
   @Input('goal') goal : Goal
@@ -30,44 +29,52 @@ export class CreateGoalComponent implements OnInit {
   @ViewChild('topicInput') topicInput: ElementRef<HTMLInputElement>
   @ViewChild('auto') matAutocomplete: MatAutocomplete
   @ViewChild('addButton') addButton: ElementRef<HTMLButtonElement>
-  @ViewChild('createForm') createForm: NgForm
+
+  types : string[]
+  createForm: FormGroup;
 
   constructor(private goalService: GoalService) {
     this.filteredTopics = this.topicCtrl.valueChanges.pipe(
       startWith(null),
-      map((v: Topic | null) => v ? this._filter(v) : this.allTopics.slice()));
-  }
-
-  types : string[]
-
-  _reset() : void {
-    this.goal = new Goal(
-      null,
-      "",
-      GoalType.DAILY,
-      null,
-      1,
-      0,
-      []
+      map((v: Topic | null) => v ? this._filter(v) : this.allTopics.slice())
     );
+
   }
 
   ngOnInit(): void {
     this.types = Object.keys(GoalType)
+
+    this.createForm = new FormGroup({
+      text: new FormControl('', [
+        Validators.required,
+        Validators.minLength(2),
+        Validators.maxLength(400)
+      ]),
+      type: new FormControl("", [
+        Validators.required
+      ]),
+      trialsCount: new FormControl("", [
+        Validators.required,
+        Validators.min(1),
+        Validators.max(10000)
+      ]),
+    });
     if (this.goal == null) this._reset()
   }
 
-  submit(createForm: NgForm) : void {
-    if (this.topicInput.nativeElement.value !== '') {
-      this.goal.topics.push(new Topic(this.topicInput.nativeElement.value))
-    }
+  submit() : void {
+    if (!this.createForm.valid) return
+    if (this.topicInput.nativeElement.value !== '') this.goal.topics.push(new Topic(this.topicInput.nativeElement.value))
+    Object.assign(this.goal, this.createForm.value)
+    this.createForm.disable()
     console.log(this.goal)
-    this.goalService.addGoal(this.goal).subscribe(
-      _ => this._reset()
-    )
+    this.goalService.addGoal(this.goal).subscribe(_ => {
+      this.createForm.enable()
+      this._reset()
+    })
   }
 
-  add(event: MatChipInputEvent): void {
+  addTopic(event: MatChipInputEvent): void {
     const input = event.input;
     const value = event.value;
 
@@ -84,7 +91,7 @@ export class CreateGoalComponent implements OnInit {
     this.topicCtrl.setValue(null);
   }
 
-  remove(topic: Topic): void {
+  removeTopic(topic: Topic): void {
     const index = this.goal.topics.indexOf(topic);
 
     if (index >= 0) {
@@ -92,7 +99,7 @@ export class CreateGoalComponent implements OnInit {
     }
   }
 
-  selected(event: MatAutocompleteSelectedEvent): void {
+  selectTopic(event: MatAutocompleteSelectedEvent): void {
     this.goal.topics.push(new Topic(event.option.viewValue));
     this.topicInput.nativeElement.value = '';
     this.topicCtrl.setValue(null);
@@ -100,8 +107,20 @@ export class CreateGoalComponent implements OnInit {
 
 
   private _filter(value: Topic): Topic[] {
-    const filterValue = value.text.toLowerCase();
+    const filterValue = value.text == undefined ? "": value.text.toLowerCase()
+    return this.allTopics.filter(v => v.text.toLowerCase().indexOf(filterValue) === 0)
+  }
 
-    return this.allTopics.filter(v => v.text.toLowerCase().indexOf(filterValue) === 0);
+  _reset() : void {
+    this.goal = new Goal(
+      null,
+      "",
+      GoalType.DAILY,
+      null,
+      1,
+      0,
+      []
+    );
+    this.createForm.reset({...this.goal})
   }
 }

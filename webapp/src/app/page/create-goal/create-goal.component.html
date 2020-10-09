@@ -1,15 +1,15 @@
 <H1>Create task</H1>
-<form (ngSubmit)="submit(createForm)" #createForm="ngForm">
+<form (ngSubmit)="submit()" [formGroup]="createForm">
   <div class="create-goal-form">
     <mat-form-field appearance="outline" class="goal-text">
       <mat-label>Goal text</mat-label>
       <label>
-        <input matInput placeholder="text" name="text" [(ngModel)]="goal.text" />
+        <input matInput placeholder="text" name="text" formControlName="text"/>
       </label>
     </mat-form-field>
     <mat-form-field appearance="outline">
       <mat-label>Type</mat-label>
-      <mat-select name="type" ngModel [(ngModel)]="goal.type">
+      <mat-select name="type" formControlName="type">
         <mat-option>-- None --</mat-option>
         <mat-option *ngFor="let type of types" value="{{ type }}">{{ type }}</mat-option>
       </mat-select>
@@ -17,7 +17,7 @@
     <mat-form-field appearance="outline">
       <mat-label>Approaches Number</mat-label>
       <label>
-        <input type="number" matInput name="trialsCount" [(ngModel)]="goal.trialsCount">
+        <input type="number" matInput name="trialsCount" formControlName="trialsCount">
       </label>
     </mat-form-field>
   </div>
@@ -28,7 +28,7 @@
           *ngFor="let topic of goal.topics"
           [selectable]="selectable"
           [removable]="removable"
-          (removed)="remove(topic)">
+          (removed)="removeTopic(topic)">
           {{topic.text}}
           <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
         </mat-chip>
@@ -40,10 +40,10 @@
             [matAutocomplete]="auto"
             [matChipInputFor]="chipList"
             [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
-            (matChipInputTokenEnd)="add($event)">
+            (matChipInputTokenEnd)="addTopic($event)">
         </label>
       </mat-chip-list>
-      <mat-autocomplete #auto="matAutocomplete" (optionSelected)="selected($event)">
+      <mat-autocomplete #auto="matAutocomplete" (optionSelected)="selectTopic($event)">
         <mat-option *ngFor="let topic of filteredTopics | async" [value]="topic">
           {{topic.text}}
         </mat-option>
