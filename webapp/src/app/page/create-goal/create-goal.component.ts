@@ -1,10 +1,10 @@
 import {Component, ElementRef, Input, OnInit, ViewChild} from '@angular/core';
 import {GoalType} from "../../models/goal-type.enum";
-import {FormControl, FormGroup, NgForm, Validators} from "@angular/forms";
+import {FormControl, FormGroup, Validators} from "@angular/forms";
 import {COMMA, ENTER} from "@angular/cdk/keycodes";
 import {Observable} from "rxjs";
 import {MatAutocomplete, MatAutocompleteSelectedEvent} from "@angular/material/autocomplete";
-import {map, startWith} from 'rxjs/operators';
+import {map} from 'rxjs/operators';
 import {MatChipInputEvent} from "@angular/material/chips";
 import {Goal} from "../../models/goal";
 import {Topic} from "../../models/topic";
@@ -35,8 +35,7 @@ export class CreateGoalComponent implements OnInit {
 
   constructor(private goalService: GoalService) {
     this.filteredTopics = this.topicCtrl.valueChanges.pipe(
-      startWith(null),
-      map((v: Topic | null) => v ? this._filter(v) : this.allTopics.slice())
+      map((v: String | null) => v ? this._filter(v) : this.allTopics.slice())
     );
 
   }
@@ -106,9 +105,8 @@ export class CreateGoalComponent implements OnInit {
   }
 
 
-  private _filter(value: Topic): Topic[] {
-    const filterValue = value.text == undefined ? "": value.text.toLowerCase()
-    return this.allTopics.filter(v => v.text.toLowerCase().indexOf(filterValue) === 0)
+  private _filter(value: String): Topic[] {
+    return this.allTopics.filter(v => v.text.toLowerCase().indexOf(value.toLocaleLowerCase()) === 0)
   }
 
   _reset() : void {
