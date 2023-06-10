@@ -1,13 +1,13 @@
 plugins {
-	id 'org.springframework.boot' version '2.3.3.RELEASE'
-	id 'io.spring.dependency-management' version '1.0.10.RELEASE'
+	id 'org.springframework.boot' version '3.1.0'
+	id 'io.spring.dependency-management' version '1.1.0'
 	id 'java'
-	id 'maven-publish'
+//	id 'maven-publish'
 }
 
 group = 'io.poshidaev'
 version = '0.0.1-SNAPSHOT'
-sourceCompatibility = '14'
+sourceCompatibility = '17'
 
 compileJava {
 	options.compilerArgs += ["--enable-preview"]
@@ -17,20 +17,20 @@ test {
 	jvmArgs '--enable-preview'
 }
 
-publishing {
-	repositories {
-		maven {
-			name = "GitHubPackages"
-			url = "https://maven.pkg.github.com/k-pozhidaev"
-//			println(System.getenv("GITHUB_TOKEN"))
-//			println(System.getenv("GITHUB_ACTOR"))
-			credentials {
-				username = System.getenv("GITHUB_ACTOR")
-				password = System.getenv("GITHUB_TOKEN")
-			}
-		}
-	}
-}
+//publishing {
+//	repositories {
+//		maven {
+//			name = "GitHubPackages"
+//			url = "https://maven.pkg.github.com/k-pozhidaev"
+////			println(System.getenv("GITHUB_TOKEN"))
+////			println(System.getenv("GITHUB_ACTOR"))
+//			credentials {
+//				username = System.getenv("GITHUB_ACTOR")
+//				password = System.getenv("GITHUB_TOKEN")
+//			}
+//		}
+//	}
+//}
 
 configurations {
 	compileOnly {

@@ -52,7 +52,7 @@ public class GoalService {
     }
 
     public GoalDTO getOne(final Long id){
-        return new GoalDTO(goalRepository.getOne(id));
+        return new GoalDTO(goalRepository.getReferenceById(id));
     }
 
     public Goal addGoal(final GoalDTO dto){
@@ -78,7 +78,7 @@ public class GoalService {
     }
 
     public Integer addApproach(final Long id, final LocalDate date) {
-        final Goal goal = goalRepository.getOne(id);
+        final Goal goal = goalRepository.getReferenceById(id);
         GoalApproach goalApproach = new GoalApproach(Date.valueOf(date), goal);
         goalApproach = goalApproachRepository.save(goalApproach);
         goal.getApproaches().add(goalApproach);
@@ -110,7 +110,7 @@ public class GoalService {
         final List<GoalDTO> allWithTopics = goalRepository.getAllWithTopics()
                 .stream()
                 .map(GoalDTO::new)
-                .collect(Collectors.toUnmodifiableList());
+                .collect(Collectors.toList());
         final List<Long> ids = allWithTopics.stream().map(GoalDTO::getId).collect(Collectors.toList());
         final List<List<Long>> approachesCount = goalApproachRepository.getDailyCountByGoalListIdsAndDate(
                 ids,
